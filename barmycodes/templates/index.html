@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+	<h1>hi</h1>
+
+	{% if barcode %}
+		<img class="barcode" src="data:image/png;base64,{{ barcode }}" />
+	{% else %}
+		<div>No barcodes.</div>
+	{% endif %}
+{% endblock %}
