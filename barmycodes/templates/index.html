@@ -7,6 +7,8 @@
         {% for barcode in barcodes %}
             <img class="barcode" src="data:image/png;base64,{{ barcode }}" />
         {% endfor %}
+    {% else %}
+        <div>No barcodes.</div>
     {% endif %}
 
 {% endblock %}
