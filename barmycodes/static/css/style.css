@@ -91,3 +91,11 @@ img {
 .loading-indicator {
     margin-right: 20px;
 }
+
+/*
+ * Bootstrap overrides
+ */
+.panel.panel-default .panel-heading {
+    background-color: #34495e;
+    color: white;
+}

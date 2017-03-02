@@ -26,7 +26,7 @@ def index():
     for value in barcode_values:
         if not value:
             break
-        barcode = Barcode("Code128", value, 200, 'mm').asImage('png')
+        barcode = Barcode("Code128", value, 200, 'mm')
         barcodes.append(barcode)
 
     # Render the template

@@ -76,7 +76,12 @@
                 <div class="row">
             {% endif %}
             <div class="col-md-6">
-                <img class="barcode" src="data:image/png;base64,{{ barcode }}" />
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ barcode.text_value }}</div>
+                    <div class="panel-body">
+                        <img class="barcode" src="data:image/png;base64,{{ barcode.asImage('png') }}" />
+                    </div>
+                </div>
             </div>
             {% if loop.index % 2 == 0 %}
                 </div>
