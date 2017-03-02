@@ -24,11 +24,17 @@ def index():
 
     # Create barcodes for each barcode value
     for value in barcode_values:
+        if not value:
+            break
         barcode = Barcode("Code128", value, 200, 'mm').asImage('png')
         barcodes.append(barcode)
 
     # Render the template
-    return render_template('index.html', barcodes=barcodes)
+    data = {
+        'barcodes': barcodes,
+        'barcode_values': '\n'.join(barcode_values)
+    }
+    return render_template('index.html', data=data)
 
 
 # Run the app

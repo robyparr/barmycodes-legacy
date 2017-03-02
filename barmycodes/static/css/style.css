@@ -1,4 +1,93 @@
-body { 
+/*
+ * Base
+ */
+body {
 	font-family: sans-serif; 
 	background: #eee; 
+}
+
+.row {
+	margin-bottom: 20px;
+}
+
+.no-margin-right {
+	margin-right: 0 !important;
+}
+
+.no-margin-left {
+	margin-left: 0 !important;
+}
+
+.margin-top-default {
+	margin-top: 20px;
+}
+
+/*
+ * Sidebar styles
+ */
+@media(min-width: $screen-md-min) {
+    .sidebar {
+        position: fixed;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+    }
+}
+
+.sidebar {
+    background-color: #34495e;
+    border-right: 1px solid #e7e7e7;
+    padding: 0;
+    color: white;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+
+.sidebar textarea {
+    color: black;
+}
+
+
+.sidebar-heading {
+    text-align: center;
+    font-size: 1.8em;
+    line-height: 50px;
+    border-bottom: 1px solid #4E6C80;
+}
+
+.sidebar-content {
+    padding: 20px;
+}
+
+/*
+ * Barcode form styles
+ */
+#textBarcodes {
+	width: 100%;
+	min-height: 150px;
+}
+
+/*
+ * No content styles
+ */
+.no-content {
+	text-align: center;
+	color: RGBA(0, 0, 0, 0.70);
+}
+
+img {
+    max-width: 100%;
+}
+
+.barcode-image:hover {
+    cursor: pointer;
+}
+
+#barcodeModal .modal-title {
+    word-wrap: break-word;
+}
+
+.loading-indicator {
+    margin-right: 20px;
 }

@@ -1,14 +1,93 @@
 {% extends "layout.html" %}
 
 {% block body %}
-	<h1>hi</h1>
+    <div class="row no-margin-left no-margin-right">
 
-    {% if barcodes %}
-        {% for barcode in barcodes %}
-            <img class="barcode" src="data:image/png;base64,{{ barcode }}" />
+        <!-- Sidebar -->
+        <div class="col-lg-3 col-md-4 col-sm-12 sidebar">
+
+            <!-- Sidebar heading -->
+            <div class="sidebar-heading">
+                Bar My Codes
+            </div>
+
+            <!-- Sidebar content -->
+            <div class="sidebar-content">
+
+                <!-- Barcode form -->
+                <label htmlFor="textBarcodes">Barcodes</label>
+                <textarea id="textBarcodes" 
+                    placeholder="Enter each of your barcodes on a new line.">{{ data['barcode_values'] }}</textarea>
+
+                <!-- Generate barcodes button -->
+                <div class="text-right">
+                    <button type="submit" id="btnGenerate" class="btn btn-primary">
+                        Bar My Codes!
+                    </button>
+                </div>
+                <br />
+
+                {#
+                <div class="form-horizontal">
+                    <h4>PDF Options</h4>
+                    <div class="form-group">
+                        <label htmlFor="pdfUnit" class="col-md-4 control-label">
+                            Measurement
+                        </label>
+                        <div class="col-md-8">
+                            <select id="pdfUnit" class="form-control">
+                                <option value="auto">Auto</option>
+                                <option value="in">inches</option>
+                                <option value="mm">millimeters</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label htmlFor="pdfWidth" class="col-md-4 control-label">
+                        Width
+                    </label>
+                    <div class="col-md-8">
+                        <input id="pdfWidth" type="text" class="form-control" placeholder="Page width" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label htmlFor="pdfHeight" class="col-md-4 control-label">
+                        Height
+                    </label>
+                    <div class="col-md-8">
+                        <input id="pdfHeight" type="text" class="form-control" placeholder="Page height" />
+                    </div>
+                </div>
+                #}
+
+            </div>
+        </div>
+    </div>
+
+<!-- Barcodes -->
+<div class="col-lg-9 col-lg-offset-3 col-md-offset-4 col-md-8 col-sm-12 margin-top-default">
+    {% if data['barcodes'] %}
+        {% for barcode in data['barcodes'] %}
+            {% if loop.index0 % 2 == 0 %}
+                <div class="row">
+            {% endif %}
+            <div class="col-md-6">
+                <img class="barcode" src="data:image/png;base64,{{ barcode }}" />
+            </div>
+            {% if loop.index % 2 == 0 %}
+                </div>
+            {% endif %}
         {% endfor %}
     {% else %}
-        <div>No barcodes.</div>
+        <h1 class="no-content">
+            Your barcodes will showup here.<br />
+            Try it out to the left.
+        </h1>
     {% endif %}
+</div>
 
 {% endblock %}
