@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Response, redirect
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from io import BytesIO
 
 from barmycodes.models.barcode import Barcode
 
@@ -36,6 +39,44 @@ def index():
     }
     return render_template('index.html', data=data)
 
+@app.route("/pdf", methods=['GET'])
+def pdf():
+    """Renders a PDF with barcodes generated from the
+    querystring params 'b[].'
+    """
+
+    # Values to generate barcodes from
+    barcode_values = request.args.getlist('b[]')
+
+    # Start PDF generation
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer)
+
+    # Generate barcodes and add to PDF
+    for value in barcode_values:
+        if not value:
+            break
+
+        # Generate the barcode
+        barcode = Barcode("Code128", value, 200, 'mm')
+
+        # Add the barcode to the PDF
+        barcode_buffer = BytesIO(barcode.asString('png'))
+        pdf.drawImage(ImageReader(barcode_buffer), 1, 1)
+        barcode_buffer.close()
+
+        pdf.setPageSize((barcode.width, barcode.height))
+        pdf.showPage()
+
+    pdf.save()
+
+    response = Response(
+        buffer.getvalue(),
+        mimetype='application/pdf'
+    )
+
+    buffer.close()
+    return response
 
 # Run the app
 if __name__ == "__main__":

@@ -43,9 +43,20 @@ class Barcode:
 		""" Save the barcode """
 		self.drawing.save(formats, location, fnRoot=filename)
 
+	def asString(self, format):
+		return self.drawing.asString(format)
+
 	def asImage(self, format):
 		image_string = self.drawing.asString(format)
 		return base64.b64encode(image_string).decode('ascii')
+
+	@property
+	def width(self):
+		return self.drawing.width
+
+	@property
+	def height(self):
+		return self.drawing.height
 
 
 if __name__ == '__main__':

@@ -21,6 +21,11 @@
 
                 <!-- Generate barcodes button -->
                 <div class="text-right">
+                    {% if data['barcodes'] %}
+                    <button type="button" id="btnPdf" class="btn btn-default">
+                        Export to PDF
+                    </button>
+                    {% endif %}
                     <button type="submit" id="btnGenerate" class="btn btn-primary">
                         Bar My Codes!
                     </button>
@@ -68,31 +73,38 @@
         </div>
     </div>
 
-<!-- Barcodes -->
-<div class="col-lg-9 col-lg-offset-3 col-md-offset-4 col-md-8 col-sm-12 margin-top-default">
-    {% if data['barcodes'] %}
-        {% for barcode in data['barcodes'] %}
-            {% if loop.index0 % 2 == 0 %}
-                <div class="row">
-            {% endif %}
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ barcode.text_value }}</div>
-                    <div class="panel-body">
-                        <img class="barcode" src="data:image/png;base64,{{ barcode.asImage('png') }}" />
+    <!-- Barcodes -->
+    <div class="col-lg-9 col-lg-offset-3 col-md-offset-4 col-md-8 col-sm-12 margin-top-default">
+        {# Display barcodes or no barcodes message #}
+        {% if data['barcodes'] %}
+        
+            {# Display individual barcodes #}
+            {% for barcode in data['barcodes'] %}
+                {# Start a new row on the first and every 3rd barcode #}
+                {% if loop.index0 % 2 == 0 %}
+                    <div class="row">
+                {% endif %}
+
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ barcode.text_value }}</div>
+                        <div class="panel-body">
+                            <img class="barcode" src="data:image/png;base64,{{ barcode.asImage('png') }}" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% if loop.index % 2 == 0 %}
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% else %}
-        <h1 class="no-content">
-            Your barcodes will showup here.<br />
-            Try it out to the left.
-        </h1>
-    {% endif %}
-</div>
+
+                {# End the row every 2 barcodes #}
+                {% if loop.index % 2 == 0 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <h1 class="no-content">
+                Your barcodes will showup here.<br />
+                Try it out to the left.
+            </h1>
+        {% endif %}
+    </div>
 
 {% endblock %}

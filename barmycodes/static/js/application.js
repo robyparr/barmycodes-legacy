@@ -24,4 +24,12 @@ $(document).ready(function() {
 			window.location.href = url;
 		}
 	});
+
+	// PDF button clicked
+	$('#btnPdf').on('click', function() {
+		var url = window.location.protocol + '//' + window.location.host + '/pdf?'
+			+ window.location.search;
+
+			window.location.href = url;
+	});
 });
