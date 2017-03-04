@@ -56,6 +56,15 @@ body {
     border-bottom: 1px solid #4E6C80;
 }
 
+.sidebar-heading a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar-heading a:hover {
+    cursor: pointer;
+}
+
 .sidebar-content {
     padding: 20px;
 }
