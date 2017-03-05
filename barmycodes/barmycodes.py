@@ -29,7 +29,7 @@ def index():
     for value in barcode_values:
         if not value:
             break
-        barcode = Barcode("Code128", value, 200, 'mm')
+        barcode = Barcode("Code128", value, width=200, unit='mm')
         barcodes.append(barcode)
 
     # Render the template
@@ -48,6 +48,11 @@ def pdf():
     # Values to generate barcodes from
     barcode_values = request.args.getlist('b[]')
 
+    # Determine PDF size params
+    measurement = request.args.get('measurement')
+    width = request.args.get('width')
+    height = request.args.get('height')
+
     # Start PDF generation
     buffer = BytesIO()
     pdf = canvas.Canvas(buffer)
@@ -58,10 +63,16 @@ def pdf():
             break
 
         # Generate the barcode
-        barcode = Barcode("Code128", value, 200, 'mm')
+        barcode = Barcode(
+            "Code128",
+            value,
+            width=(width if width else 200),
+            height=(height if height else None),
+            unit=(measurement if measurement in ('inch', 'mm') else 'mm')
+        )
 
         # Add the barcode to the PDF
-        barcode_buffer = BytesIO(barcode.asString('png'))
+        barcode_buffer = BytesIO(barcode.as_string('png'))
         pdf.drawImage(ImageReader(barcode_buffer), 1, 1)
         barcode_buffer.close()
 

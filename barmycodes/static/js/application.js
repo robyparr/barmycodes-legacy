@@ -27,9 +27,42 @@ $(document).ready(function() {
 
 	// PDF button clicked
 	$('#btnPdf').on('click', function() {
-		var url = window.location.protocol + '//' + window.location.host + '/pdf?'
+		// Set the url value
+		var url = window.location.protocol + '//' + window.location.host + '/pdf'
 			+ window.location.search;
 
-			window.location.href = url;
+		// Add custom sizes to the url
+		var measurement = $('#pdfUnit').val();
+
+		if (measurement != 'auto') {
+			var width = $('#pdfWidth').val();
+			var height = $('#pdfHeight').val();
+
+			if (width != '' || height != '') {
+				url += '&measurement=' + measurement;
+			}
+
+			if (width != '') {
+				url += '&width=' + width;
+			}
+
+			if (height != '') {
+				url += '&height=' + height;
+			}
+		}
+
+		// Change the url
+		window.location.href = url;
+	});
+
+	// PDF export measurement listener
+	$('#pdfUnit').on('change', function() {
+		var select = $(this);
+
+		if (select.val() != 'auto') {
+			$('.pdf-export-dimensions').show();
+		} else {
+			$('.pdf-export-dimensions').hide();
+		}
 	});
 });

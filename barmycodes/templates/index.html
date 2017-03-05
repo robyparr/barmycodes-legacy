@@ -15,59 +15,68 @@
             <div class="sidebar-content">
 
                 <!-- Barcode form -->
-                <label htmlFor="textBarcodes">Barcodes</label>
+                <label for="textBarcodes">Barcodes</label>
                 <textarea id="textBarcodes" 
                     placeholder="Enter each of your barcodes on a new line.">{{ data['barcode_values'] }}</textarea>
 
                 <!-- Generate barcodes button -->
                 <div class="text-right">
-                    {% if data['barcodes'] %}
-                    <button type="button" id="btnPdf" class="btn btn-default">
-                        Export to PDF
-                    </button>
-                    {% endif %}
                     <button type="submit" id="btnGenerate" class="btn btn-primary">
                         Bar My Codes!
                     </button>
                 </div>
                 <br />
 
-                {#
-                <div class="form-horizontal">
-                    <h4>PDF Options</h4>
-                    <div class="form-group">
-                        <label htmlFor="pdfUnit" class="col-md-4 control-label">
-                            Measurement
-                        </label>
-                        <div class="col-md-8">
-                            <select id="pdfUnit" class="form-control">
-                                <option value="auto">Auto</option>
-                                <option value="in">inches</option>
-                                <option value="mm">millimeters</option>
-                            </select>
+                {# PDF Export Options #}
+                {% if data['barcodes'] %}
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h4>PDF Export</h4>
                         </div>
                     </div>
-                </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label for="pdfUnit" class="col-md-4 control-label">
+                                Measurement
+                            </label>
+                            <div class="col-md-8">
+                                <select id="pdfUnit" class="form-control">
+                                    <option value="auto">Auto</option>
+                                    <option value="in">inches</option>
+                                    <option value="mm">millimeters</option>
+                                </select>
+                            </div>
+                        </div>
 
 
-                <div class="form-group">
-                    <label htmlFor="pdfWidth" class="col-md-4 control-label">
-                        Width
-                    </label>
-                    <div class="col-md-8">
-                        <input id="pdfWidth" type="text" class="form-control" placeholder="Page width" />
+                        <div class="form-group pdf-export-dimensions" style="display: none;">
+                            <label for="pdfWidth" class="col-md-4 control-label">
+                                Width
+                            </label>
+                            <div class="col-md-8">
+                                <input id="pdfWidth" type="text" class="form-control" placeholder="Page width" />
+                            </div>
+                        </div>
+
+                        <div class="form-group pdf-export-dimensions" style="display: none;">
+                            <label for="pdfHeight" class="col-md-4 control-label">
+                                Height
+                            </label>
+                            <div class="col-md-8">
+                                <input id="pdfHeight" type="text" class="form-control" placeholder="Page height" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-right">
+                                {% if data['barcodes'] %}
+                                    <button type="button" id="btnPdf" class="btn btn-default">
+                                        Export to PDF
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label htmlFor="pdfHeight" class="col-md-4 control-label">
-                        Height
-                    </label>
-                    <div class="col-md-8">
-                        <input id="pdfHeight" type="text" class="form-control" placeholder="Page height" />
-                    </div>
-                </div>
-                #}
+                {% endif %}
 
             </div>
         </div>
@@ -89,7 +98,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">{{ barcode.text_value }}</div>
                         <div class="panel-body">
-                            <img class="barcode" src="data:image/png;base64,{{ barcode.asImage('png') }}" />
+                            <img class="barcode" src="data:image/png;base64,{{ barcode.as_image('png') }}" />
                         </div>
                     </div>
                 </div>
