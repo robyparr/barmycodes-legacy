@@ -51,8 +51,8 @@ $(document).ready(function() {
 			}
 		}
 
-		// Change the url
-		window.location.href = url;
+		// Open the PDF
+		window.open(url, '_blank');
 	});
 
 	// PDF export measurement listener
