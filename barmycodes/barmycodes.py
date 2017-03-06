@@ -3,7 +3,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from io import BytesIO
 
-from barmycodes.models.barcode import Barcode
+from .models.barcode import Barcode
 
 # Setup Flask app
 app = Flask(__name__)
