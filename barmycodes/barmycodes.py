@@ -21,6 +21,10 @@ def index():
 
     # Values to generate barcodes from
     barcode_values = request.args.getlist('b[]')
+    barcode_type = request.args.get('type', 'Code128')
+
+    if not barcode_type in ('Code128', 'QR'):
+        barcode_type = 'Code128'
 
     # List of generated barcodes
     barcodes = []
@@ -29,7 +33,7 @@ def index():
     for value in barcode_values:
         if not value:
             break
-        barcode = Barcode("Code128", value, width=200, unit='mm')
+        barcode = Barcode(barcode_type, value, unit='mm')
         barcodes.append(barcode)
 
     # Render the template
@@ -47,6 +51,10 @@ def pdf():
 
     # Values to generate barcodes from
     barcode_values = request.args.getlist('b[]')
+    barcode_type = request.args.get('type', 'Code128')
+
+    if not barcode_type in ('Code128', 'QR'):
+        barcode_type = 'Code128'
 
     # Determine PDF size params
     measurement = request.args.get('measurement')
@@ -64,9 +72,9 @@ def pdf():
 
         # Generate the barcode
         barcode = Barcode(
-            "Code128",
+            barcode_type,
             value,
-            width=(width if width else 200),
+            width=(width if width else None),
             height=(height if height else None),
             unit=(measurement if measurement in ('inch', 'mm') else 'mm')
         )

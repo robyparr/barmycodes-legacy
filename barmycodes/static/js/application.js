@@ -4,6 +4,7 @@ $(document).ready(function() {
 	$('#btnGenerate').on('click', function() {
 		// Get barcode values split by newlines
 		var barcode_values = $('#textBarcodes').val();
+		var barcode_type = $('#barcodeType').val();
 		
 		// Current URL
 		var url = window.location.protocol + '//' + window.location.host + '/';
@@ -17,8 +18,8 @@ $(document).ready(function() {
 				url += 'b[]=' + barcode_values[i] + '&';
 			}
 
-			// Remove the final '&'' from the url
-			url = url.slice(0, -1);
+			// Set the barcode type
+			url += 'type=' + barcode_type;
 
 			// Set the URL
 			window.location.href = url;

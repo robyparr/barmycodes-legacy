@@ -10,7 +10,10 @@ class Barcode:
 
     unit_mapping = {'inch': units.inch, 'mm': units.mm}
 
-    def __init__(self, type, text_value, width, height=None, unit=None):
+    DEFAULT_WIDTH_CODE128 = 200
+    DEFAULT_WIDTH_QR = 100
+
+    def __init__(self, type, text_value, width=None, height=None, unit=None):
         """ Initialize the barcode. This creates the actual
         barcode and sets it up for further action. """
 
@@ -39,6 +42,11 @@ class Barcode:
         # Determine the width
         if width:
             width = float(width) * self.unit_mapping.get(unit, units.mm)
+        else:
+            width = self.DEFAULT_WIDTH_CODE128 if self.type == 'Code128' \
+                else self.DEFAULT_WIDTH_QR
+
+            width *= self.unit_mapping.get(unit, units.mm)
 
         # Determine the scale
         scale = width / barcode.width
