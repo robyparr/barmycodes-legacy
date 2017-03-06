@@ -1,5 +1,4 @@
 appdirs==1.4.0
--e git+https://github.com/robyparr/barmycodes.git@7f7bebf75a59cb4e3f9e803238557180758f7f64#egg=barmycodes
 click==6.7
 Flask==0.12
 gunicorn==19.7.0

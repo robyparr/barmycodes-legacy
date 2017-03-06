@@ -4,10 +4,11 @@ from reportlab.lib.utils import ImageReader
 from io import BytesIO
 
 from .models.barcode import Barcode
+from . import config
 
 # Setup Flask app
 app = Flask(__name__)
-app.config.from_object('barmycodes.config')
+app.config.from_object(config)
 app.config.from_envvar('BARMYCODES_CONFIG', silent=True)
 
 
