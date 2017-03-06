@@ -91,9 +91,6 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# Flask
-barmycodes/config.py
-
 # OS
 .DS_Store
 .idea/
