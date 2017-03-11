@@ -114,6 +114,9 @@
                         <div class="panel-body text-center">
                             <img class="barcode" src="data:image/png;base64,{{ barcode.as_image('png') }}" />
                         </div>
+                        <div class="panel-footer text-right">
+                            <a href="/png?b[]={{ barcode.text_value }}&type={{ barcode.type }}">PNG</a>
+                        </div>
                     </div>
                 </div>
 
