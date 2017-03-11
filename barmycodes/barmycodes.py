@@ -33,7 +33,7 @@ def index():
     # Create barcodes for each barcode value
     for value in barcode_values:
         if not value:
-            break
+            continue
         barcode = Barcode(barcode_type, value, unit='mm')
         barcodes.append(barcode)
 
@@ -70,7 +70,7 @@ def pdf():
     # Generate barcodes and add to PDF
     for value in barcode_values:
         if not value:
-            break
+            continue
 
         # Generate the barcode
         barcode = Barcode(
