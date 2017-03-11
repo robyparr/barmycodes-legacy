@@ -40,11 +40,19 @@ $(document).ready(function() {
 			window.location.href = url;
 		}
 	});
+	
+	// Ctrl/CMD + Enter pressed in text area
+	$('#textBarcodes').on('keydown', function(e) {
+		// http://stackoverflow.com/a/36478923
+		if ((e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10)) {
+			$('#btnGenerate').click();
+		}
+	});
 
 	// PDF button clicked
 	$('#btnPdf').on('click', function() {
 		hideError();
-		
+
 		// Set the url value
 		var url = window.location.protocol + '//' + window.location.host + '/pdf'
 			+ window.location.search;
