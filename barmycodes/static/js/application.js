@@ -1,7 +1,22 @@
 $(document).ready(function() {
 
+
+	function showError(message) {
+		$('#error')
+			.html(message)
+			.show();
+	}
+
+	function hideError() {
+		$('#error')
+			.html('')
+			.hide();
+	}
+
 	// Generate button clicked
 	$('#btnGenerate').on('click', function() {
+		hideError();
+
 		// Get barcode values split by newlines
 		var barcode_values = $('#textBarcodes').val();
 		var barcode_type = $('#barcodeType').val();
@@ -28,6 +43,8 @@ $(document).ready(function() {
 
 	// PDF button clicked
 	$('#btnPdf').on('click', function() {
+		hideError();
+		
 		// Set the url value
 		var url = window.location.protocol + '//' + window.location.host + '/pdf'
 			+ window.location.search;
@@ -36,8 +53,15 @@ $(document).ready(function() {
 		var measurement = $('#pdfUnit').val();
 
 		if (measurement != 'auto') {
+			var barcode_type = $('#barcodeType').val();
 			var width = $('#pdfWidth').val();
 			var height = $('#pdfHeight').val();
+
+			// Error checking
+			if (barcode_type === 'QR' && (width != '' && height != '' && width != height)) {
+				showError('QR Codes should have the same width and height.');
+				return;
+			}
 
 			if (width != '' || height != '') {
 				url += '&measurement=' + measurement;

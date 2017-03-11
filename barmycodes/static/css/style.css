@@ -22,6 +22,10 @@ body {
 	margin-top: 20px;
 }
 
+#error {
+    margin-top: -30px;
+}
+
 /*
  * Sidebar styles
  */
