@@ -65,6 +65,7 @@ def pdf():
     # Start PDF generation
     buffer = BytesIO()
     pdf = canvas.Canvas(buffer)
+    pdf.setTitle('barmycodes.pdf')
 
     # Generate barcodes and add to PDF
     for value in barcode_values:
@@ -92,8 +93,10 @@ def pdf():
 
     response = Response(
         buffer.getvalue(),
-        mimetype='application/pdf'
+        mimetype='application/pdf',
     )
+
+    response.headers['Content-Disposition'] = 'inline; filename=barmycodes.pdf'
 
     buffer.close()
     return response
