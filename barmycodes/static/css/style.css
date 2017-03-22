@@ -33,15 +33,6 @@ small {
 /*
  * Sidebar styles
  */
-@media(min-width: $screen-md-min) {
-    .sidebar {
-        position: fixed;
-        top: 0px;
-        bottom: 0;
-        left: 0;
-    }
-}
-
 .sidebar {
     background-color: #34495e;
     border-right: 1px solid #e7e7e7;
@@ -88,9 +79,31 @@ small {
 /*
  * No content styles
  */
-.no-content {
+.no-content, .no-content-above {
 	text-align: center;
 	color: RGBA(0, 0, 0, 0.70);
+}
+
+.no-content-above {
+    display: none;
+}
+
+@media(max-width: 991px) {
+    .sidebar {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: auto;
+    }
+
+    .no-content-above {
+        display: block;
+    }
+
+    .no-content {
+        display: none;
+    }
 }
 
 img {
