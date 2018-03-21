@@ -28,7 +28,7 @@ $(document).ready(function() {
       url += '?';
     
       for(var i = 0; i < barcode_values.length; i++) {
-        url += 'b[]=' + barcode_values[i] + '&';
+        url += 'b[]=' + encodeURIComponent(barcode_values[i]) + '&';
       }
 
       // Set the barcode type
