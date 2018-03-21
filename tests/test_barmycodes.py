@@ -13,7 +13,7 @@ class BarmycodesTestCase(unittest.TestCase):
         """ When loading /, there should be no
         barcodes on the page. """
         index = self.app.get('/')
-        assert b'No barcodes.' in index.data
+        assert b'Your barcodes will showup here.' in index.data
 
     def test_barcodes(self):
         """ When loading /?b[]=test there should be

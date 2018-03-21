@@ -23,6 +23,12 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+Run the tests:
+
+```
+python setup.py test
+```
+
 Run the app:
 
 ```
