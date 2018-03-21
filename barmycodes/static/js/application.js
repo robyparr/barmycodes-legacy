@@ -1,101 +1,99 @@
 $(document).ready(function() {
+  function showError(message) {
+    $('#error')
+      .html(message)
+      .show();
+  }
 
+  function hideError() {
+    $('#error')
+      .html('')
+      .hide();
+  }
 
-	function showError(message) {
-		$('#error')
-			.html(message)
-			.show();
-	}
+  // Generate button clicked
+  $('#btnGenerate').on('click', function() {
+    hideError();
 
-	function hideError() {
-		$('#error')
-			.html('')
-			.hide();
-	}
+    // Get barcode values split by newlines
+    var barcode_values = $('#textBarcodes').val();
+    var barcode_type = $('#barcodeType').val();
+    
+    // Current URL
+    var url = window.location.protocol + '//' + window.location.host + '/';
+  
+    // Start building generation URL
+    if (barcode_values.length > 0) {
+      barcode_values = barcode_values.split('\n');
+      url += '?';
+    
+      for(var i = 0; i < barcode_values.length; i++) {
+        url += 'b[]=' + barcode_values[i] + '&';
+      }
 
-	// Generate button clicked
-	$('#btnGenerate').on('click', function() {
-		hideError();
+      // Set the barcode type
+      url += 'type=' + barcode_type;
 
-		// Get barcode values split by newlines
-		var barcode_values = $('#textBarcodes').val();
-		var barcode_type = $('#barcodeType').val();
-		
-		// Current URL
-		var url = window.location.protocol + '//' + window.location.host + '/';
-	
-		// Start building generation URL
-		if (barcode_values.length > 0) {
-			barcode_values = barcode_values.split('\n');
-			url += '?';
-		
-			for(var i = 0; i < barcode_values.length; i++) {
-				url += 'b[]=' + barcode_values[i] + '&';
-			}
+      // Set the URL
+      window.location.href = url;
+    }
+  });
+  
+  // Ctrl/CMD + Enter pressed in text area
+  $('#textBarcodes').on('keydown', function(e) {
+    // http://stackoverflow.com/a/36478923
+    if ((e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10)) {
+      $('#btnGenerate').click();
+    }
+  });
 
-			// Set the barcode type
-			url += 'type=' + barcode_type;
+  // PDF button clicked
+  $('#btnPdf').on('click', function() {
+    hideError();
 
-			// Set the URL
-			window.location.href = url;
-		}
-	});
-	
-	// Ctrl/CMD + Enter pressed in text area
-	$('#textBarcodes').on('keydown', function(e) {
-		// http://stackoverflow.com/a/36478923
-		if ((e.ctrlKey || e.metaKey) && (e.keyCode == 13 || e.keyCode == 10)) {
-			$('#btnGenerate').click();
-		}
-	});
+    // Set the url value
+    var url = window.location.protocol + '//' + window.location.host + '/pdf'
+      + window.location.search;
 
-	// PDF button clicked
-	$('#btnPdf').on('click', function() {
-		hideError();
+    // Add custom sizes to the url
+    var measurement = $('#pdfUnit').val();
 
-		// Set the url value
-		var url = window.location.protocol + '//' + window.location.host + '/pdf'
-			+ window.location.search;
+    if (measurement != 'auto') {
+      var barcode_type = $('#barcodeType').val();
+      var width = $('#pdfWidth').val();
+      var height = $('#pdfHeight').val();
 
-		// Add custom sizes to the url
-		var measurement = $('#pdfUnit').val();
+      // Error checking
+      if (barcode_type === 'QR' && (width != '' && height != '' && width != height)) {
+        showError('QR Codes should have the same width and height.');
+        return;
+      }
 
-		if (measurement != 'auto') {
-			var barcode_type = $('#barcodeType').val();
-			var width = $('#pdfWidth').val();
-			var height = $('#pdfHeight').val();
+      if (width != '' || height != '') {
+        url += '&measurement=' + measurement;
+      }
 
-			// Error checking
-			if (barcode_type === 'QR' && (width != '' && height != '' && width != height)) {
-				showError('QR Codes should have the same width and height.');
-				return;
-			}
+      if (width != '') {
+        url += '&width=' + width;
+      }
 
-			if (width != '' || height != '') {
-				url += '&measurement=' + measurement;
-			}
+      if (height != '') {
+        url += '&height=' + height;
+      }
+    }
 
-			if (width != '') {
-				url += '&width=' + width;
-			}
+    // Open the PDF
+    window.open(url, '_blank');
+  });
 
-			if (height != '') {
-				url += '&height=' + height;
-			}
-		}
+  // PDF export measurement listener
+  $('#pdfUnit').on('change', function() {
+    var select = $(this);
 
-		// Open the PDF
-		window.open(url, '_blank');
-	});
-
-	// PDF export measurement listener
-	$('#pdfUnit').on('change', function() {
-		var select = $(this);
-
-		if (select.val() != 'auto') {
-			$('.pdf-export-dimensions').show();
-		} else {
-			$('.pdf-export-dimensions').hide();
-		}
-	});
+    if (select.val() != 'auto') {
+      $('.pdf-export-dimensions').show();
+    } else {
+      $('.pdf-export-dimensions').hide();
+    }
+  });
 });

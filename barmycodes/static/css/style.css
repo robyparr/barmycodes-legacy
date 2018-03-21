@@ -2,24 +2,24 @@
  * Base
  */
 body {
-	font-family: sans-serif; 
-	background: #eee; 
+    font-family: sans-serif; 
+    background: #eee; 
 }
 
 .row {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .no-margin-right {
-	margin-right: 0 !important;
+    margin-right: 0 !important;
 }
 
 .no-margin-left {
-	margin-left: 0 !important;
+    margin-left: 0 !important;
 }
 
 .margin-top-default {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 #error {
@@ -72,16 +72,16 @@ small {
  * Barcode form styles
  */
 #textBarcodes {
-	width: 100%;
-	min-height: 150px;
+    width: 100%;
+    min-height: 150px;
 }
 
 /*
  * No content styles
  */
 .no-content, .no-content-above {
-	text-align: center;
-	color: RGBA(0, 0, 0, 0.70);
+    text-align: center;
+    color: RGBA(0, 0, 0, 0.70);
 }
 
 .no-content-above {
