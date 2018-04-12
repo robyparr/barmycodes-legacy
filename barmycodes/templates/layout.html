@@ -10,11 +10,9 @@
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-43476314-7', {
-                'storage': 'none'
-            });
-            ga('send', 'pageview');
-
+            ga('create', 'UA-43476314-7', { 'storage': 'none' });
+            ga('set', 'anonymizeIp', true);
+            ga('send', { hitType: 'pageview', page: location.pathname });
         </script>
     </head>
     <body>
@@ -24,5 +22,21 @@
         <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap-3.3.7.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/application.js') }}"></script>
+        <script>
+            var numberOfBarcodes = $('.barcode-panel').length;
+            if (window.performance) {
+                var timeSincePageLoad = Math.round(performance.now());
+                var pageLoadType = numberOfBarcodes > 0 ? 'Barcode Page' : 'Basic Page';
+                ga('send', 'timing', pageLoadType, 'load', timeSincePageLoad);
+            }
+
+            for (var i = 0; i < numberOfBarcodes; i++) {
+                ga('send', {
+                    hitType: 'event',
+                    eventCategory: 'Barcodes',
+                    eventAction: 'generate'
+                });
+            }
+        </script>
     </body>
 </html>

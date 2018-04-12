@@ -109,7 +109,7 @@
                 {% endif %}
 
                 <div class="col-md-6">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default barcode-panel">
                         <div class="panel-heading">{{ barcode.text_value }}</div>
                         <div class="panel-body text-center">
                             <img class="barcode" src="data:image/png;base64,{{ barcode.as_image('png') }}" />
