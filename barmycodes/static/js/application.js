@@ -34,6 +34,13 @@ $(document).ready(function() {
       // Set the barcode type
       url += 'type=' + barcode_type;
 
+      ga('send', {
+        hitType: 'event',
+        eventCategory: 'Barcodes',
+        eventAction: 'generate',
+        eventLabel: barcode_type,
+        eventValue: barcode_values.length
+      });
       // Set the URL
       window.location.href = url;
     }
@@ -84,6 +91,12 @@ $(document).ready(function() {
 
     // Open the PDF
     window.open(url, '_blank');
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'PDF',
+      eventAction: 'generate multi',
+      eventLabel: measurement
+    });
   });
 
   // PDF export measurement listener
@@ -95,5 +108,21 @@ $(document).ready(function() {
     } else {
       $('.pdf-export-dimensions').hide();
     }
+  });
+
+  $('.barcode-pdf-link').on('click', function() {
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'PDF',
+      eventAction: 'generate single'
+    });
+  });
+
+  $('.barcode-png-link').on('click', function() {
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'PNG',
+      eventAction: 'generate single'
+    });
   });
 });

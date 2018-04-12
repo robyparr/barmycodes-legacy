@@ -115,8 +115,12 @@
                             <img class="barcode" src="data:image/png;base64,{{ barcode.as_image('png') }}" />
                         </div>
                         <div class="panel-footer text-right">
-                            <a href="/png?b[]={{ barcode.text_value }}&type={{ barcode.type }}" style="margin-right: 15px;">PNG</a>
-                            <a target="_blank" href="/pdf?b[]={{ barcode.text_value }}&type={{ barcode.type }}">PDF</a>
+                            <a href="/png?b[]={{ barcode.text_value }}&type={{ barcode.type }}"
+                                class="barcode-png-link"
+                                style="margin-right: 15px;">PNG</a>
+                            <a href="/pdf?b[]={{ barcode.text_value }}&type={{ barcode.type }}"
+                                target="_blank"
+                                class="barcode-pdf-link">PDF</a>
                         </div>
                     </div>
                 </div>

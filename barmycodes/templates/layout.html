@@ -29,14 +29,6 @@
                 var pageLoadType = numberOfBarcodes > 0 ? 'Barcode Page' : 'Basic Page';
                 ga('send', 'timing', pageLoadType, 'load', timeSincePageLoad);
             }
-
-            for (var i = 0; i < numberOfBarcodes; i++) {
-                ga('send', {
-                    hitType: 'event',
-                    eventCategory: 'Barcodes',
-                    eventAction: 'generate'
-                });
-            }
         </script>
     </body>
 </html>
