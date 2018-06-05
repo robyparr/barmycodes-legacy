@@ -84,16 +84,16 @@
     {% if config.SHOW_ADS %}
         <div class="row">
             <div class="col-md-12">
-                <script type="text/plain"
+                <script {% if config.USE_COOKIEBOT %}type="text/plain" {% else %} type="text/javascript" {% endif %}
                     data-cookieconsent="marketing"
                     async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <!-- test2 -->
                 <ins class="adsbygoogle"
                         style="display:block"
                         data-ad-client="{{ config.AD_CLIENT }}"
-                        data-ad-slot="7788017617"
+                        data-ad-slot="{{ config.AD_SLOT }}"
                         data-ad-format="auto"></ins>
-                <script type="text/plain" data-cookieconsent="marketing">
+                <script {% if config.USE_COOKIEBOT %}type="text/plain" {% else %} type="text/javascript" {% endif %} data-cookieconsent="marketing">
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>
@@ -101,9 +101,9 @@
     {% endif %}
     {% if config.SHOW_PRIVACY_POLICY %}
         <div class="row">
-        <div class="col-md-12 text-center">
-            <a href="/privacy">Privacy Policy</A>
-        </div>
+            <div class="col-md-12 text-center">
+                <a href="/privacy">Privacy Policy</A>
+            </div>
         </div>
     {% endif %}
 </div>
