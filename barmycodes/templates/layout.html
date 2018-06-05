@@ -12,6 +12,7 @@
 
             ga('create', 'UA-43476314-7', { 'storage': 'none' });
             ga('set', 'anonymizeIp', true);
+            ga('send', 'pageview');
         </script>
         {% if config.USE_COOKIEBOT %}
             <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js"
@@ -34,15 +35,5 @@
         <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap-3.3.7.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/application.js') }}"></script>
-        <script>
-            var numberOfBarcodes = $('.barcode-panel').length;
-            if (window.performance) {
-                var timeSincePageLoad = Math.round(performance.now());
-                var pageLoadType = numberOfBarcodes > 0 ? 'Barcode Page' : 'Basic Page';
-                ga('send', 'timing', pageLoadType, 'load', timeSincePageLoad);
-            } else {
-                ga('send', 'pageview');
-            }
-        </script>
     </body>
 </html>
