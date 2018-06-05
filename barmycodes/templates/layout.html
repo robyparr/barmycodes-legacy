@@ -13,10 +13,23 @@
             ga('create', 'UA-43476314-7', { 'storage': 'none' });
             ga('set', 'anonymizeIp', true);
         </script>
+        {% if config.USE_COOKIEBOT %}
+            <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js"
+                data-cbid="{{ config.COOKIEBOT_ID }}"
+                type="text/javascript" async></script>
+        {% endif %}
     </head>
     <body>
-        {% block body %}
-        {% endblock %}
+        <div class="row no-margin-left no-margin-right">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4 col-sm-12 sidebar">
+                {% include '_sidebar.html' %}
+            </div>
+            <div class="col-lg-9 col-lg-offset-3 col-md-offset-4 col-md-8 col-sm-12 margin-top-default">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
 
         <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap-3.3.7.min.js') }}"></script>

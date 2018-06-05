@@ -1,0 +1,107 @@
+<!-- Sidebar heading -->
+<div class="sidebar-heading">
+    <a href="/">Bar My Codes</a>
+</div>
+
+<!-- Sidebar content -->
+<div class="sidebar-content">
+
+    <!-- Barcode form -->
+    <label for="textBarcodes">Barcodes</label>
+    <textarea id="textBarcodes" autofocus="autofocus"
+        placeholder="Enter each of your barcodes on a new line.">{{ data['barcode_values'] }}</textarea>
+    
+    <div class="text-right">
+        <small>Press Ctrl/CMD + Enter to generate barcodes.</small>
+    </div>
+
+    <!-- Generate barcodes button -->
+    <div class="row">
+        <div class="col-md-7">
+            <select id="barcodeType" class="form-control">
+                <option value="Code128" {% if request.args.get('type') == 'Code128' %}selected="selected"{% endif %}>Code128</option>
+                <option value="QR" {% if request.args.get('type') == 'QR' %}selected="selected"{% endif %}>QR Code</option>
+            </select>
+        </div>
+        <div class="col-md-5 text-right">
+            <button type="submit" id="btnGenerate" class="btn btn-primary">
+                Bar My Codes!
+            </button>
+        </div>
+    </div>
+    <br />
+
+    {# PDF Export Options #}
+    {% if data['barcodes'] %}
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <h4>PDF Export</h4>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label for="pdfUnit" class="col-md-4 control-label">
+                    Measurement
+                </label>
+                <div class="col-md-8">
+                    <select id="pdfUnit" class="form-control">
+                        <option value="auto">Auto</option>
+                        <option value="inch">inches</option>
+                        <option value="mm">millimeters</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="form-group pdf-export-dimensions" style="display: none;">
+                <label for="pdfWidth" class="col-md-4 control-label">
+                    Width
+                </label>
+                <div class="col-md-8">
+                    <input id="pdfWidth" type="text" class="form-control" placeholder="Page width" />
+                </div>
+            </div>
+
+            <div class="form-group pdf-export-dimensions" style="display: none;">
+                <label for="pdfHeight" class="col-md-4 control-label">
+                    Height
+                </label>
+                <div class="col-md-8">
+                    <input id="pdfHeight" type="text" class="form-control" placeholder="Page height" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    {% if data['barcodes'] %}
+                        <button type="button" id="btnPdf" class="btn btn-default">
+                            Export to PDF
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if config.SHOW_ADS %}
+        <div class="row">
+            <div class="col-md-12">
+                <script type="text/plain"
+                    data-cookieconsent="marketing"
+                    async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- test2 -->
+                <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="{{ config.AD_CLIENT }}"
+                        data-ad-slot="7788017617"
+                        data-ad-format="auto"></ins>
+                <script type="text/plain" data-cookieconsent="marketing">
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <a href="/privacy">Privacy Policy</A>
+      </div>
+    </div>
+</div>

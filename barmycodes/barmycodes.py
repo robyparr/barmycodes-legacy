@@ -129,6 +129,10 @@ def pdf():
     buffer.close()
     return response
 
+@app.route('/privacy', methods=['GET'])
+def privacy():
+    return render_template('privacy.html', data='')
+
 # Run the app
 if __name__ == "__main__":
     app.run()

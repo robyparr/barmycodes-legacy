@@ -1,145 +1,49 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div class="row no-margin-left no-margin-right">
+    <div id="error" class="alert alert-danger" style="display: none;"></div>
 
-        <!-- Sidebar -->
-        <div class="col-lg-3 col-md-4 col-sm-12 sidebar">
+    {# Display barcodes or no barcodes message #}
+    {% if data['barcodes'] %}
 
-            <!-- Sidebar heading -->
-            <div class="sidebar-heading">
-                <a href="/">Bar My Codes</a>
-            </div>
-
-            <!-- Sidebar content -->
-            <div class="sidebar-content">
-
-                <!-- Barcode form -->
-                <label for="textBarcodes">Barcodes</label>
-                <textarea id="textBarcodes" autofocus="autofocus"
-                    placeholder="Enter each of your barcodes on a new line.">{{ data['barcode_values'] }}</textarea>
-                
-                <div class="text-right">
-                    <small>Press Ctrl/CMD + Enter to generate barcodes.</small>
-                </div>
-
-                <!-- Generate barcodes button -->
+        {# Display individual barcodes #}
+        {% for barcode in data['barcodes'] %}
+            {# Start a new row on the first and every 3rd barcode #}
+            {% if loop.index0 % 2 == 0 %}
                 <div class="row">
-                    <div class="col-md-7">
-                        <select id="barcodeType" class="form-control">
-                            <option value="Code128" {% if request.args.get('type') == 'Code128' %}selected="selected"{% endif %}>Code128</option>
-                            <option value="QR" {% if request.args.get('type') == 'QR' %}selected="selected"{% endif %}>QR Code</option>
-                        </select>
+            {% endif %}
+
+            <div class="col-md-6">
+                <div class="panel panel-default barcode-panel">
+                    <div class="panel-heading">{{ barcode.text_value }}</div>
+                    <div class="panel-body text-center">
+                        <img class="barcode" src="data:image/png;base64,{{ barcode.as_image('png') }}" />
                     </div>
-                    <div class="col-md-5 text-right">
-                        <button type="submit" id="btnGenerate" class="btn btn-primary">
-                            Bar My Codes!
-                        </button>
+                    <div class="panel-footer text-right">
+                        <a href="/png?b[]={{ barcode.text_value }}&type={{ barcode.type }}"
+                            class="barcode-png-link"
+                            style="margin-right: 15px;">PNG</a>
+                        <a href="/pdf?b[]={{ barcode.text_value }}&type={{ barcode.type }}"
+                            target="_blank"
+                            class="barcode-pdf-link">PDF</a>
                     </div>
                 </div>
-                <br />
-
-                {# PDF Export Options #}
-                {% if data['barcodes'] %}
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h4>PDF Export</h4>
-                        </div>
-                    </div>
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label for="pdfUnit" class="col-md-4 control-label">
-                                Measurement
-                            </label>
-                            <div class="col-md-8">
-                                <select id="pdfUnit" class="form-control">
-                                    <option value="auto">Auto</option>
-                                    <option value="inch">inches</option>
-                                    <option value="mm">millimeters</option>
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group pdf-export-dimensions" style="display: none;">
-                            <label for="pdfWidth" class="col-md-4 control-label">
-                                Width
-                            </label>
-                            <div class="col-md-8">
-                                <input id="pdfWidth" type="text" class="form-control" placeholder="Page width" />
-                            </div>
-                        </div>
-
-                        <div class="form-group pdf-export-dimensions" style="display: none;">
-                            <label for="pdfHeight" class="col-md-4 control-label">
-                                Height
-                            </label>
-                            <div class="col-md-8">
-                                <input id="pdfHeight" type="text" class="form-control" placeholder="Page height" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12 text-right">
-                                {% if data['barcodes'] %}
-                                    <button type="button" id="btnPdf" class="btn btn-default">
-                                        Export to PDF
-                                    </button>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-
             </div>
-        </div>
-    </div>
 
-    <!-- Barcodes -->
-    <div class="col-lg-9 col-lg-offset-3 col-md-offset-4 col-md-8 col-sm-12 margin-top-default">
-        <div id="error" class="alert alert-danger" style="display: none;"></div>
-
-        {# Display barcodes or no barcodes message #}
-        {% if data['barcodes'] %}
-        
-            {# Display individual barcodes #}
-            {% for barcode in data['barcodes'] %}
-                {# Start a new row on the first and every 3rd barcode #}
-                {% if loop.index0 % 2 == 0 %}
-                    <div class="row">
-                {% endif %}
-
-                <div class="col-md-6">
-                    <div class="panel panel-default barcode-panel">
-                        <div class="panel-heading">{{ barcode.text_value }}</div>
-                        <div class="panel-body text-center">
-                            <img class="barcode" src="data:image/png;base64,{{ barcode.as_image('png') }}" />
-                        </div>
-                        <div class="panel-footer text-right">
-                            <a href="/png?b[]={{ barcode.text_value }}&type={{ barcode.type }}"
-                                class="barcode-png-link"
-                                style="margin-right: 15px;">PNG</a>
-                            <a href="/pdf?b[]={{ barcode.text_value }}&type={{ barcode.type }}"
-                                target="_blank"
-                                class="barcode-pdf-link">PDF</a>
-                        </div>
-                    </div>
+            {# End the row every 2 barcodes #}
+            {% if loop.index % 2 == 0 %}
                 </div>
-
-                {# End the row every 2 barcodes #}
-                {% if loop.index % 2 == 0 %}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% else %}
-            <h1 class="no-content">
-                Your barcodes will showup here.<br />
-                Try it out to the left.
-            </h1>
-            <h1 class="no-content-above">
-                Your barcodes will showup here.<br />
-                Try it out above.
-            </h1>
-        {% endif %}
-    </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <h1 class="no-content">
+            Your barcodes will showup here.<br />
+            Try it out to the left.
+        </h1>
+        <h1 class="no-content-above">
+            Your barcodes will showup here.<br />
+            Try it out above.
+        </h1>
+    {% endif %}
 
 {% endblock %}

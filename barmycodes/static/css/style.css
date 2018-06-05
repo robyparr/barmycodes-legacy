@@ -47,7 +47,9 @@ small {
     color: black;
 }
 
-
+.sidebar a {
+    color: inherit;
+}
 .sidebar-heading {
     text-align: center;
     font-size: 1.8em;
