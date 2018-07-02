@@ -4,6 +4,8 @@ A simple barcode generator service.
 
 ## Getting started
 
+_Note: Tested using python 3._
+
 Setup `virtualenv` if not already done:
 
 ```
