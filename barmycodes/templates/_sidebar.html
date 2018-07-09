@@ -84,8 +84,7 @@
     {% if config.SHOW_ADS %}
         <div class="row">
             <div class="col-md-12">
-                <script {% if config.USE_COOKIEBOT %}type="text/plain" {% else %} type="text/javascript" {% endif %}
-                    data-cookieconsent="marketing"
+                <script class="consent-ads" {% if config.USE_CONSENT %}type="text/plain" {% else %} type="text/javascript" {% endif %}
                     async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                 <!-- test2 -->
                 <ins class="adsbygoogle"
@@ -93,7 +92,7 @@
                         data-ad-client="{{ config.AD_CLIENT }}"
                         data-ad-slot="{{ config.AD_SLOT }}"
                         data-ad-format="auto"></ins>
-                <script {% if config.USE_COOKIEBOT %}type="text/plain" {% else %} type="text/javascript" {% endif %} data-cookieconsent="marketing">
+                <script class="consent-ads" {% if config.USE_CONSENT %}type="text/plain" {% else %} type="text/javascript" {% endif %}>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
             </div>

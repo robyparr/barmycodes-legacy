@@ -2,8 +2,8 @@ import os
 
 class Config(object):
     DEBUG = False
-    USE_COOKIEBOT = os.getenv('USE_COOKIEBOT', False)
-    COOKIEBOT_ID = os.getenv('COOKIEBOT_ID', '')
+    USE_CONSENT = os.getenv('USE_CONSENT', False)
+    CONSENT_FLOW_ID = os.getenv('CONSENT_FLOW_ID', '')
     SHOW_ADS = os.getenv('SHOW_ADS', False)
     AD_CLIENT = os.getenv('AD_CLIENT', '')
     AD_SLOT = os.getenv('AD_SLOT', '')

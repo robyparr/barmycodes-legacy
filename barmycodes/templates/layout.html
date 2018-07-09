@@ -14,11 +14,6 @@
             ga('set', 'anonymizeIp', true);
             ga('send', 'pageview');
         </script>
-        {% if config.USE_COOKIEBOT %}
-            <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js"
-                data-cbid="{{ config.COOKIEBOT_ID }}"
-                type="text/javascript" async></script>
-        {% endif %}
     </head>
     <body>
         <div class="row no-margin-left no-margin-right">
@@ -35,5 +30,24 @@
         <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap-3.3.7.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/application.js') }}"></script>
+
+        {% if config.USE_CONSENT %}
+            <script src="https://webconsent.robyparr.com/library.js"></script>
+            <div id="web-consent-container"></div>
+            <script>
+                Consent.setHandler('ads', 'accept', function() {
+                    var consentAds = $('script.consent-ads');
+                    var parent = consentAds.parent();
+                    consentAds.remove();
+
+                    for(var i = 0; i < consentAds.length; i++) {
+                        var item = consentAds[i];
+                        item.type = 'text/javascript';
+                        $(item).insertAfter(parent);
+                    }
+                });
+                Consent.showDialog('{{ config.CONSENT_FLOW_ID }}', null);
+            </script>
+        {% endif %}
     </body>
 </html>
