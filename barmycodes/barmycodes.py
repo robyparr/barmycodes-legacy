@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, Response, redirect
+from scout_apm.flask import ScoutApm
 from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from io import BytesIO
@@ -9,6 +10,7 @@ from .config import Config
 # Setup Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
+ScoutApm(app)
 
 
 def _get_barcodes(args, ignore_dimensions=True):
