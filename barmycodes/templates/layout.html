@@ -22,38 +22,6 @@
                 {% include '_sidebar.html' %}
             </div>
             <div class="col-lg-9 col-lg-offset-3 col-md-offset-4 col-md-8 col-sm-12 margin-top-default">
-                {% if config.SHOW_ADS %}
-                    <div id="ad-container-top" class="text-center">
-                        <script class="consent-ads" {% if config.USE_CONSENT %}type="text/plain" {% else %} type="text/javascript" {% endif %}>
-                            ( function() {
-                                if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
-                                var unit = {"calltype":"async[2]","publisher":"wovaki","width":728,"height":90,"sid":"Chitika Default"};
-                                var placement_id = 2;
-                                window.CHITIKA.units.push(unit);
-
-                                var adNode = document.createElement('div');
-                                adNode.setAttribute('id', "chitikaAdBlock-" + placement_id);
-                                document.getElementById('ad-container-top').appendChild(adNode);
-                            }());
-                        </script>
-                        <script class="consent-ads" {% if config.USE_CONSENT %}type="text/plain" {% else %} type="text/javascript" {% endif %}
-                            src="//cdn.chitika.net/getads.js" async></script>
-                    </div>
-
-                    <div id="ad-blocker-message" class="alert alert-danger" style="display: none;">
-                        <h4 class="alert-header">Ad Block Detected</h4>
-                        <p>
-                            Hello! Bar My Codes uses advertisements to provide this service to you
-                            <strong>free of charge</strong>. To support Bar My Codes, please
-                            <a target="_blank" href="https://www.computerworld.com/adblock/">
-                                disable your ad blocker
-                            </a> on this site.
-                        </p>
-                        <p>
-                            <strong>Thank you very much!</strong>
-                        </p>
-                    </div>
-                {% endif %}
                 {% block body %}
                 {% endblock %}
             </div>
@@ -62,33 +30,5 @@
         <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap-3.3.7.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/application.js') }}"></script>
-
-        {% if config.SHOW_ADS %}
-            <script src="{{ url_for('static', filename='js/ads-blocked-detector.js') }}"></script>
-            <script>
-                if(window.canRunAds === undefined){
-                    document.getElementById('ad-blocker-message').style.display = 'block';
-                }
-            </script>
-        {% endif %}
-
-        {% if config.USE_CONSENT %}
-            <script src="https://webconsent.robyparr.com/library.js"></script>
-            <div id="web-consent-container"></div>
-            <script>
-                Consent.setHandler('ads', 'accept', function() {
-                    var consentAds = $('script.consent-ads');
-                    var parent = consentAds.parent();
-                    consentAds.remove();
-
-                    for(var i = 0; i < consentAds.length; i++) {
-                        var item = consentAds[i];
-                        item.type = 'text/javascript';
-                        $(item).insertAfter(parent);
-                    }
-                });
-                Consent.showDialog('{{ config.CONSENT_FLOW_ID }}', null);
-            </script>
-        {% endif %}
     </body>
 </html>

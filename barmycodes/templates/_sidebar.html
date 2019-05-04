@@ -81,26 +81,6 @@
             </div>
         </div>
     {% endif %}
-    {% if config.SHOW_ADS %}
-        <div class="row">
-            <div id="ad-container-sidebar" class="col-md-12">
-                <script class="consent-ads" {% if config.USE_CONSENT %}type="text/plain" {% else %} type="text/javascript" {% endif %}>
-                    ( function() {
-                        if (window.CHITIKA === undefined) { window.CHITIKA = { 'units' : [] }; };
-                        var unit = {"calltype":"async[2]","publisher":"wovaki","width":300,"height":250,"sid":"Chitika Default"};
-                        var placement_id = 1;
-                        window.CHITIKA.units.push(unit);
-
-                        var adNode = document.createElement('div');
-                        adNode.setAttribute('id', "chitikaAdBlock-" + placement_id);
-                        document.getElementById('ad-container-sidebar').appendChild(adNode);
-                    }());
-                </script>
-                <script class="consent-ads" {% if config.USE_CONSENT %}type="text/plain" {% else %} type="text/javascript" {% endif %}
-                    src="//cdn.chitika.net/getads.js" async></script>
-            </div>
-        </div>
-    {% endif %}
     {% if config.SHOW_PRIVACY_POLICY %}
         <div class="row">
             <div class="col-md-12 text-center">
