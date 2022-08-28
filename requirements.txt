@@ -21,7 +21,7 @@ py==1.8.0
 pyparsing==2.1.10
 pytest==4.4.1
 PyYAML==5.1
-reportlab==3.3.0
+reportlab==3.5.55
 requests==2.21.0
 scout-apm==1.2.1
 six==1.10.0
